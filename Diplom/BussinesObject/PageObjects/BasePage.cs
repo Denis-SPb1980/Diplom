@@ -1,7 +1,6 @@
 ﻿using Diplom.Core;
 using OpenQA.Selenium;
 
-
 namespace Diplom.BussinesObject.PageObjects
 {
     public abstract class BasePage
@@ -13,8 +12,7 @@ namespace Diplom.BussinesObject.PageObjects
             driver = Browser.Instance.Driver;
         }
 
+
         public abstract BasePage OpenPage();
     }
-       
 }
-

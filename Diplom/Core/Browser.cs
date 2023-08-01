@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,4 +25,50 @@ namespace Diplom.Core
                 return instance;
             }
         }
+
+        private Browser()
+        {
+            bool isHeadless = false;
+
+            if (isHeadless)
+            {
+                ChromeOptions options = new ChromeOptions();
+                options.AddArgument("--headless");
+
+                driver = new ChromeDriver(options);
+            }
+            else
+            {
+                driver = new ChromeDriver();
+            }
+
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driver.Manage().Window.Maximize();
+        }
+
+
+        //private Browser()
+        //{
+        //    driver = AppConfiguration.Browser.BrowserType.ToLower() switch
+        //    {
+        //        "chrome" => DriverFactory.GetChromeDriver(),
+        //        "firefox" => DriverFactory.GetFirefoxDriver(),
+        //        _ => DriverFactory.GetChromeDriver()
+        //    };
+
+        //    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(AppConfiguration.Browser.ImplicityWait);
+        //    driver.Manage().Window.Maximize();
+        //}
+
+        public void NavigateToUrl(string url)
+        {
+            driver.Navigate().GoToUrl(url);
+        }
+
+        //public void CloseBrowser()
+        //{
+        //    driver?.Dispose();
+        //    BrowserInstances.Value = null;
+        //}
     }
+}
