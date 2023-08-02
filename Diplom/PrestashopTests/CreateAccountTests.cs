@@ -1,5 +1,6 @@
 ﻿using Diplom.BussinesObject.PageObjects;
 using Diplom.Core;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Diplom.PrestashopTests
 {
     internal class CreateAccountTests
     {
-        [Test]
+        [Test] //создание аккаунта (позитивный тест)
 
         public void CreateAccountTest()
         {
@@ -21,8 +22,10 @@ namespace Diplom.PrestashopTests
 
             new HomePage()
                 .GoToLogin()
-                .GoToCreateAccount();
+                .GoToCreateAccount()
+                .GoToMyAccount();
 
+            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//*[@class = 'header_user_info']/a[@class = 'account']")));
         }
     }
 }

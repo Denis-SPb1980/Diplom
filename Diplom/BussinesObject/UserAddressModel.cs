@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diplom.BussinesObject.PageObjects
+namespace Diplom.BussinesObject
 {
     public class UserAddressModel
     {

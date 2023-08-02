@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diplom.BussinesObject.PageObjects
+namespace Diplom.BussinesObject
 {
     internal class UserBuilder
     {
@@ -16,6 +16,24 @@ namespace Diplom.BussinesObject.PageObjects
             {
                 Mail = TestContext.Parameters.Get("StandartUserMail"),
                 Password = TestContext.Parameters.Get("StandartUserPassword")
+            };
+        }
+
+        public static UserAddressEmailModel GetAddressEmail()
+        {
+            return new UserAddressEmailModel
+            {
+                EMail = Faker.Internet.Email(),
+            };
+        }
+
+        public static UserCreateModel GetUserDataLogin()
+        {
+            return new UserCreateModel
+            {
+                FirstName = Faker.Name.FirstName(),
+                LastName = Faker.Name.LastName(),
+                Password = Faker.Random.Word(),
             };
         }
 

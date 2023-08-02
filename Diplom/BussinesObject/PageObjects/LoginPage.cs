@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using Bogus;
+using Diplom.Core;
+using NUnit.Framework.Internal;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +18,32 @@ namespace Diplom.BussinesObject.PageObjects
 
         private By RegisteredEmailAddressInput = By.Id("email");
         private By PasswordInput = By.Id("passwd");
+        private By SignInButton = By.Id("SubmitLogin");
 
 
         public const string url = "http://prestashop.qatestlab.com.ua/ru/authentication?back=my-account";
         public override BasePage OpenPage()
         {
-            throw new NotImplementedException();
+            Browser.Instance.NavigateToUrl(url);
+            return this;
         }
 
         public CreateAccountPage GoToCreateAccount()
         {
-            driver.FindElement(EmailAddressInput).SendKeys("test1980@mail.ru");
-            driver.FindElement(CreateAccountButton).Click();
+
+            var user = UserBuilder.GetAddressEmail();
+
+            InputMailAdress(user);
             return new CreateAccountPage();
+        }
+
+        public void InputMailAdress(UserAddressEmailModel user)
+        {
+            var email = UserBuilder.GetAddressEmail();
+
+            driver.FindElement(EmailAddressInput).SendKeys(user.EMail);
+            driver.FindElement(CreateAccountButton).Click();
+            
         }
     }
 }
