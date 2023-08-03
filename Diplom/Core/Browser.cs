@@ -65,10 +65,9 @@ namespace Diplom.Core
             driver.Navigate().GoToUrl(url);
         }
 
-        //public void CloseBrowser()
-        //{
-        //    driver?.Dispose();
-        //    BrowserInstances.Value = null;
-        //}
+        public void CloseBrowser()
+        {
+            driver?.Dispose();
+        }
     }
 }

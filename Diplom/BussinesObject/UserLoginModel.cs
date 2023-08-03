@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Diplom.BussinesObject
 {
-    internal class UserLoginModel
+    public class UserLoginModel
     {
         public string Mail { get; set; }
         public string Password { get; set; }

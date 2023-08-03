@@ -8,6 +8,15 @@ namespace Diplom.BussinesObject.PageObjects
         private By LoginButton = By.ClassName("login");
         private By BasketButton = By.XPath("//*[@class = 'shopping_cart']/a");
 
+        private By QuickPrintedSummerDress = By.;
+
+
+
+
+
+
+
+
         public const string url = "http://prestashop.qatestlab.com.ua/ru/";
 
         public override BasePage OpenPage()

@@ -2,11 +2,6 @@
 using Diplom.Core;
 using NUnit.Framework.Internal;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diplom.BussinesObject.PageObjects
 {
@@ -31,19 +26,42 @@ namespace Diplom.BussinesObject.PageObjects
         public CreateAccountPage GoToCreateAccount()
         {
 
-            var user = UserBuilder.GetAddressEmail();
+            var user = UserBuilder.GetUserDataLogin();
 
             InputMailAdress(user);
             return new CreateAccountPage();
         }
 
-        public void InputMailAdress(UserAddressEmailModel user)
+        public void InputMailAdress(UserCreateModel user)
         {
-            var email = UserBuilder.GetAddressEmail();
+            var email = UserBuilder.GetUserDataLogin();
 
             driver.FindElement(EmailAddressInput).SendKeys(user.EMail);
             driver.FindElement(CreateAccountButton).Click();
             
+        }
+
+        public MyAccountPage LoginAsStandartUser()
+        {
+            var customer = UserBuilder.GetStandandartUser();
+            TryToLogin(customer);
+
+            return new MyAccountPage();
+        }
+
+        //public AddressPage LoginAndGoToAdressPage()
+        //{
+        //    var user = UserBuilder.GetStandandartUser();
+        //    TryToLogin(user);
+
+        //    return new AddressPage();
+        //}
+
+        public void TryToLogin(UserLoginModel customer)
+        {
+            driver.FindElement(RegisteredEmailAddressInput).SendKeys(customer.Mail);
+            driver.FindElement(PasswordInput).SendKeys(customer.Password);
+            driver.FindElement(SignInButton).Click();
         }
     }
 }

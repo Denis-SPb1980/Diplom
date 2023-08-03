@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,13 @@ namespace Diplom.BussinesObject
     internal class UserBuilder
     {
         static Faker Faker = new();
+        
         public static UserLoginModel GetStandandartUser()
         {
             return new UserLoginModel
             {
                 Mail = TestContext.Parameters.Get("StandartUserMail"),
                 Password = TestContext.Parameters.Get("StandartUserPassword")
-            };
-        }
-
-        public static UserAddressEmailModel GetAddressEmail()
-        {
-            return new UserAddressEmailModel
-            {
-                EMail = Faker.Internet.Email(),
             };
         }
 
@@ -34,6 +28,7 @@ namespace Diplom.BussinesObject
                 FirstName = Faker.Name.FirstName(),
                 LastName = Faker.Name.LastName(),
                 Password = Faker.Random.Word(),
+                EMail = Faker.Internet.Email(),
             };
         }
 

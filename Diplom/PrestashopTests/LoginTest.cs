@@ -1,14 +1,18 @@
 ﻿using Diplom.BussinesObject.PageObjects;
 using Diplom.Core;
 using OpenQA.Selenium;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Diplom.PrestashopTests
 {
-    internal class CreateAccountTests
+    public class LoginTest : BaseTest
     {
-        [Test] //создание аккаунта (позитивный тест)
-
-        public void CreateAccountTest()
+        [Test]
+        public void LoginStandartUser()
         {
 
             Browser.Instance.NavigateToUrl("http://prestashop.qatestlab.com.ua/ru/");
@@ -17,10 +21,13 @@ namespace Diplom.PrestashopTests
 
             new HomePage()
                 .GoToLogin()
-                .GoToCreateAccount()
-                .GoToMyAccount();
+                .LoginAsStandartUser();
 
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//*[@class = 'header_user_info']/a[@class = 'account']")));
         }
+
+
+
     }
 }
+
