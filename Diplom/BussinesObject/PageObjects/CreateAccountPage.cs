@@ -1,4 +1,5 @@
 ﻿using Diplom.Core;
+using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
 
 namespace Diplom.BussinesObject.PageObjects
@@ -19,6 +20,7 @@ namespace Diplom.BussinesObject.PageObjects
             return this;
         }
 
+        [AllureStep]
         public MyAccountPage GoToMyAccount()
         {
 

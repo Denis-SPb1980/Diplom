@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using Diplom.Core;
-using NUnit.Framework.Internal;
+using NLog;
+using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
 
 namespace Diplom.BussinesObject.PageObjects
@@ -17,12 +18,16 @@ namespace Diplom.BussinesObject.PageObjects
 
 
         public const string url = "http://prestashop.qatestlab.com.ua/ru/authentication?back=my-account";
-        public override BasePage OpenPage()
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        public override LoginPage OpenPage()
         {
+            logger.Info($"Navigate to url {url}");
             Browser.Instance.NavigateToUrl(url);
             return this;
         }
 
+        [AllureStep]
         public CreateAccountPage GoToCreateAccount()
         {
 

@@ -10,13 +10,39 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="PrestashopTests\allureConfig.json" />
+    <None Remove="PrestashopTests\NLog.Config" />
+    <None Remove="PrestashopTests\RunSettings\appsetting.json" />
+    <None Remove="PrestashopTests\RunSettings\BrowserSetup.runsettings" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="PrestashopTests\allureConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PrestashopTests\NLog.Config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PrestashopTests\RunSettings\appsetting.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PrestashopTests\RunSettings\BrowserSetup.runsettings">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Bogus" Version="34.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="NLog" Version="5.2.3" />
     <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit.Allure" Version="1.2.1.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
     <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
     <PackageReference Include="coverlet.collector" Version="3.2.0" />
+    <PackageReference Include="Selenium.Support" Version="4.11.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.11.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="115.0.5790.17000" />
   </ItemGroup>
 
 </Project>
