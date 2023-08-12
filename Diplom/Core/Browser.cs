@@ -71,6 +71,11 @@ namespace Diplom.Core
             driver.Navigate().GoToUrl(url);
         }
 
+        public void SwitchToFrame(IWebElement element)
+        {
+            driver.SwitchTo().Frame(element);
+        }
+
         public void CloseBrowser()
         {
             driver?.Dispose();

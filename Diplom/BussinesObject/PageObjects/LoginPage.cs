@@ -54,14 +54,6 @@ namespace Diplom.BussinesObject.PageObjects
             return new MyAccountPage();
         }
 
-        //public AddressPage LoginAndGoToAdressPage()
-        //{
-        //    var user = UserBuilder.GetStandandartUser();
-        //    TryToLogin(user);
-
-        //    return new AddressPage();
-        //}
-
         public void TryToLogin(UserLoginModel customer)
         {
             driver.FindElement(RegisteredEmailAddressInput).SendKeys(customer.Mail);

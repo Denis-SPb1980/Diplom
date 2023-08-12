@@ -50,7 +50,7 @@ namespace Diplom.BussinesObject
                 Address = Faker.Address.StreetAddress(),
                 PostalCode = TestContext.Parameters.Get("PostalCode"),
                 City = Faker.Address.City(),
-                MobilePhone = Faker.Phone.PhoneNumber(),
+                MobilePhone =  Faker.Phone.PhoneNumber().Substring(0, 10),
                 AddressAlias = Faker.Random.Word(),
 
             };

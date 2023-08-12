@@ -20,7 +20,7 @@ namespace Diplom.BussinesObject.PageObjects
             return this;
         }
 
-        [AllureStep]
+        
         public MyAccountPage GoToMyAccount()
         {
 
@@ -28,6 +28,12 @@ namespace Diplom.BussinesObject.PageObjects
 
             InputUserData(user);
             return new MyAccountPage();
+        }
+
+        public void CreateNewUser()
+        {
+            var user = UserBuilder.GetUserDataLogin();
+            InputUserData(user); 
         }
 
         public void InputUserData(UserCreateModel user)

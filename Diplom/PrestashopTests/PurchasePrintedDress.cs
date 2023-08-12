@@ -23,7 +23,11 @@ namespace Diplom.PrestashopTests
             new HomePage()
                 .GoToPopUpPrintedDress()
                 .GoToPopUpBasket()
-                .GoToBasket();
+                .GoToBasket()
+                .GoAuthenticationPage()
+                .LoginAndGoToAdressesPage();
+
+
 
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//*[@class = 'header_user_info']/a[@class = 'account']")));
         }
