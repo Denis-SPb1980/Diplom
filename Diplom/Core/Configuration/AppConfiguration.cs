@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Diplom.Core.Configuration
+﻿namespace Diplom.Core.Configuration
 {
     public class AppConfiguration
     {
@@ -23,7 +17,6 @@ namespace Diplom.Core.Configuration
                 return browser;
             }
         }
-
         public static T GetValue<T>(string key)
         {
             string value = TestContext.Parameters.Get(key);

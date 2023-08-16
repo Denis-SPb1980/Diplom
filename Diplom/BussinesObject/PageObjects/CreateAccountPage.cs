@@ -1,4 +1,5 @@
 ﻿using Diplom.Core;
+using NLog;
 using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
 
@@ -11,8 +12,8 @@ namespace Diplom.BussinesObject.PageObjects
         private By PasswordInput = By.Id("passwd");
         private By RegisterButton = By.Id("submitAccount");
 
-
         public const string url = "http://prestashop.qatestlab.com.ua/ru/authentication?back=my-account#account-creation";
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public override BasePage OpenPage()
         {
@@ -20,22 +21,23 @@ namespace Diplom.BussinesObject.PageObjects
             return this;
         }
 
-        
-        public MyAccountPage GoToMyAccount()
+        [AllureStep]
+        public MyAccountPage CreateNewUserAndGoToMyAccount()
         {
-
             var user = UserBuilder.GetUserDataLogin();
-
             InputUserData(user);
+            logger.Info($"Create new user FirstName: {user.FirstName} LastName: {user.LastName} Password: {user.Password}");
             return new MyAccountPage();
         }
 
+        [AllureStep]
         public void CreateNewUser()
         {
             var user = UserBuilder.GetUserDataLogin();
             InputUserData(user); 
         }
 
+        [AllureStep]
         public void InputUserData(UserCreateModel user)
         {
             driver.FindElement(FirstNameInput).SendKeys(user.FirstName);
@@ -43,11 +45,27 @@ namespace Diplom.BussinesObject.PageObjects
             driver.FindElement(PasswordInput).SendKeys(user.Password);
             driver.FindElement(RegisterButton).Click();
         }
-           
 
-        
+        [AllureStep]
+        public void CreateNewUserWithOutName()
+        {
+            var user = UserBuilder.GetUserDataLogin();
+            InputUserDataWithOutName(user);
+        }
 
+        [AllureStep]
+        public void CreateUserWithOutName()
+        {
+            var user = UserBuilder.GetUserDataLogin();
+            InputUserData(user);
+        }
 
-
+        [AllureStep]
+        public void InputUserDataWithOutName(UserCreateModel user)
+        {
+            driver.FindElement(LastNameInput).SendKeys(user.LastName);
+            driver.FindElement(PasswordInput).SendKeys(user.Password);
+            driver.FindElement(RegisterButton).Click();
+        }
     }
 }

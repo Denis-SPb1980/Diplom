@@ -1,23 +1,16 @@
-﻿using Diplom.BussinesObject.PageObjects;
+﻿using Diplom.BussinesObject;
+using Diplom.BussinesObject.PageObjects;
 using Diplom.Core;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diplom.PrestashopTests
 {
     public class LoginTest : BaseTest
     {
-        [Test]
+        [Test(Description = "Positive test login standart user")]
         public void LoginStandartUser()
         {
-
             Browser.Instance.NavigateToUrl("http://prestashop.qatestlab.com.ua/ru/");
-
-            Thread.Sleep(1000);
 
             new HomePage()
                 .GoToLogin()
@@ -26,8 +19,19 @@ namespace Diplom.PrestashopTests
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//*[@class = 'header_user_info']/a[@class = 'account']")));
         }
 
+        [Test(Description = "Negative test login unknown user")]
+        public void LoginUnknownUser()
+        {
+            Browser.Instance.NavigateToUrl("http://prestashop.qatestlab.com.ua/ru/authentication?back=my-account");
 
+            var user = UserBuilder.GetUnknownUser();
 
+            new LoginPage()
+                .OpenPage()
+                .TryToLogin(user);
+
+            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//*[@class = 'alert alert-danger']/ol/li[contains(text(),'Authentication failed')]")));
+        }
     }
 }
 

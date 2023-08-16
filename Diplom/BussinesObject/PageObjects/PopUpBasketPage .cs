@@ -3,10 +3,9 @@ using NLog;
 using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
 
-
 namespace Diplom.BussinesObject.PageObjects
 {
-    internal class PopUpBasketPage : BasePage
+    public class PopUpBasketPage : BasePage
     {
         private By ContinuePurchasesButton = By.XPath("//*[@class = 'icon-chevron-left left']");
         private By CheckoutButton = By.XPath("//*[@class = 'btn btn-default button button-medium']/span");
@@ -15,17 +14,20 @@ namespace Diplom.BussinesObject.PageObjects
 
         public override PopUpBasketPage OpenPage() => this;
 
-        public void ContinuePurchases()
+        [AllureStep]
+        public HomePage ContinuePurchases()
         {
             logger.Info("Continue shopping selected");
             driver.FindElement(ContinuePurchasesButton).Click();
+            return new HomePage();
         }
 
-        public BasketPage GoToBasket()
+        [AllureStep]
+        public BasketPage PurchasesCompletedGoToBasket()
         {
             logger.Info("Purchases completed went to cart");
             driver.FindElement(CheckoutButton).Click();
-
+            AllureHelper.ScreenShot();
             return new BasketPage();
         }
     }

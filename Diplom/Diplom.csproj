@@ -10,17 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="C:\Users\Comp\.nuget\packages\nlog.config\4.7.15\contentFiles\any\any\NLog.config" />
     <None Remove="PrestashopTests\allureConfig.json" />
-    <None Remove="PrestashopTests\NLog.Config" />
     <None Remove="PrestashopTests\RunSettings\appsetting.json" />
     <None Remove="PrestashopTests\RunSettings\BrowserSetup.runsettings" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="PrestashopTests\allureConfig.json">
+    <Content Include="C:\Users\Comp\.nuget\packages\nlog.config\4.7.15\contentFiles\any\any\NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PrestashopTests\NLog.Config">
+    <Content Include="PrestashopTests\allureConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PrestashopTests\RunSettings\appsetting.json">
@@ -33,8 +33,10 @@
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="34.0.2" />
+    <PackageReference Include="Faker.Net" Version="2.0.154" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="NLog" Version="5.2.3" />
+    <PackageReference Include="NLog.Config" Version="4.7.15" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit.Allure" Version="1.2.1.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />

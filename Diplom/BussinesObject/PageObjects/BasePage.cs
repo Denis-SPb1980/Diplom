@@ -12,7 +12,6 @@ namespace Diplom.BussinesObject.PageObjects
             driver = Browser.Instance.Driver;
         }
 
-
         public abstract BasePage OpenPage();
     }
 }

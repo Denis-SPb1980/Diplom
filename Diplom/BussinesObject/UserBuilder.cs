@@ -1,17 +1,7 @@
-﻿using Bogus;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Diplom.BussinesObject
+﻿namespace Diplom.BussinesObject
 {
     internal class UserBuilder
     {
-        static Faker Faker = new();
-        
         public static UserLoginModel GetStandandartUser()
         {
             return new UserLoginModel
@@ -25,10 +15,11 @@ namespace Diplom.BussinesObject
         {
             return new UserCreateModel
             {
-                FirstName = Faker.Name.FirstName(),
-                LastName = Faker.Name.LastName(),
-                Password = Faker.Random.Word(),
+                FirstName = Faker.Name.First(),
+                LastName = Faker.Name.Last(),
+                Password = Faker.Identification.SocialSecurityNumber(),
                 EMail = Faker.Internet.Email(),
+                
             };
         }
 
@@ -37,7 +28,7 @@ namespace Diplom.BussinesObject
             return new UserLoginModel
             {
                 Mail = Faker.Internet.Email(),
-                Password = Faker.Internet.Password(),
+                Password = Faker.Identification.SocialSecurityNumber(),
             };
         }
 
@@ -45,13 +36,13 @@ namespace Diplom.BussinesObject
         {
             return new UserAddressModel
             {
-                FirstName = Faker.Name.FirstName(),
-                LastName = Faker.Name.LastName(),
+                FirstName = Faker.Name.First(),
+                LastName = Faker.Name.Last(),
                 Address = Faker.Address.StreetAddress(),
                 PostalCode = TestContext.Parameters.Get("PostalCode"),
                 City = Faker.Address.City(),
-                MobilePhone =  Faker.Phone.PhoneNumber().Substring(0, 10),
-                AddressAlias = Faker.Random.Word(),
+                MobilePhone =  Faker.Phone.Number(),
+                AddressAlias = Faker.Address.StreetName(),
 
             };
         }

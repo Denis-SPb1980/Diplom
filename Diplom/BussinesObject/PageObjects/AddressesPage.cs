@@ -1,12 +1,8 @@
 ﻿using Diplom.Core;
+using NLog;
 using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diplom.BussinesObject.PageObjects
 {
@@ -22,22 +18,29 @@ namespace Diplom.BussinesObject.PageObjects
         private By StateDropDown = By.XPath("//*[@id = 'id_state']");
         private By AddressTitleInput = By.Id("alias");
         private By SaveButton = By.Id("submitAddress");
+        private By AddNewAddressButton = By.XPath("//*[@class = 'address_add submit']/a");
+        private By ProceedToCheckoutBatton = By.XPath("//*[@class = 'button btn btn-default button-medium']");
 
         public const string url = "http://prestashop.qatestlab.com.ua/ru/address";
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        [AllureStep]
         public override AddressesPage OpenPage()
         {
+            logger.Info($"Navigate to url {url}");
             Browser.Instance.NavigateToUrl(url);
             return this;
         }
 
         [AllureStep]
-        public void FillUserAddress()
+        public void FillAndSaveUserAddress()
         {
+            logger.Info($"Addres user is filled and saved");
             var user = UserBuilder.GetUserData();
             InputCustomerAddressAndSave(user);   
         }
 
+        [AllureStep]
         public void InputCustomerAddressAndSave(UserAddressModel user)
         {
             driver.FindElement(FirstNameInput).SendKeys(user.FirstName);
@@ -54,16 +57,33 @@ namespace Diplom.BussinesObject.PageObjects
 
         public void SelectCountry()
         {
+            logger.Info($"Сountry selection");
             var select = new SelectElement(driver.FindElement(CountryDropDown));
             select.SelectByValue("216");
         }
-
-        [AllureStep]
         public void SelectState()
         {
+            logger.Info($"Сountry state");
+            var Random = new Random();
+            var num = Random.Next(1, 10);
             var select = new SelectElement(driver.FindElement(StateDropDown));
-            select.SelectByValue("26");
+            select.SelectByIndex(num);
         }
 
+        [AllureStep]
+        public DeliveryPage FillUserAddressAndGoToDeliveryPage()
+        {
+            FillAndSaveUserAddress();
+            driver.FindElement(ProceedToCheckoutBatton).Click();
+            return new DeliveryPage();
+        }
+
+        [AllureStep]
+        public DeliveryPage GoToDeliveryPage()
+        {
+            driver.FindElement(ProceedToCheckoutBatton).Click();
+            AllureHelper.ScreenShot();
+            return new DeliveryPage();
+        }
     }
 }

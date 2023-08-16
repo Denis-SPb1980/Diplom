@@ -6,21 +6,32 @@ namespace Diplom.PrestashopTests
 {
     internal class CreateAccountTests : BaseTest
     {
-        [Test] //создание аккаунта (позитивный тест)
+        [Test(Description = "Positive test create account")]
 
-        public void CreateAccountTest()
+        public void CreateAccount()
         {
-
             Browser.Instance.NavigateToUrl("http://prestashop.qatestlab.com.ua/ru/");
-
-            Thread.Sleep(1000);
 
             new HomePage()
                 .GoToLogin()
-                .GoToCreateAccount()
-                .GoToMyAccount();
+                .FillEmailAndGoToCreateAccount()
+                .CreateNewUserAndGoToMyAccount();
 
             Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//*[@class = 'header_user_info']/a[@class = 'account']")));
+        }
+
+        [Test(Description = "Negative test create account")]
+
+        public void CreateAccountTestWithOutName()
+        {
+            Browser.Instance.NavigateToUrl("http://prestashop.qatestlab.com.ua/ru/authentication?back=my-account");
+
+            new LoginPage()
+                .OpenPage()
+                .FillEmailAndGoToCreateAccount()
+                .CreateNewUserWithOutName();
+
+            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//*[@class = 'alert alert-danger']/ol/li[contains(text(),'is required')]")));
         }
     }
 }
