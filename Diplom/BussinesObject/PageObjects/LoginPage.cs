@@ -28,17 +28,17 @@ namespace Diplom.BussinesObject.PageObjects
         [AllureStep]
         public CreateAccountPage FillEmailAndGoToCreateAccount()
         {
-            var user = UserBuilder.GetUserDataLogin();
+            var user = UserBuilder.GetUserDataEmail();
             InputMailAddress(user);
             logger.Info($"Try to input mail adress EMail: {user.EMail}");
             return new CreateAccountPage();
         }
 
         [AllureStep]
-        public void InputMailAddress(UserCreateModel user)
+        public void InputMailAddress(UserAddressEmailModel user)
         {
             
-            var email = UserBuilder.GetUserDataLogin();
+            var email = UserBuilder.GetUserDataEmail();
             driver.FindElement(EmailAddressInput).SendKeys(user.EMail);
             driver.FindElement(CreateAccountButton).Click();
         }

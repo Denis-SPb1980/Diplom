@@ -17,9 +17,14 @@
             {
                 FirstName = Faker.Name.First(),
                 LastName = Faker.Name.Last(),
-                Password = Faker.Identification.SocialSecurityNumber(),
-                EMail = Faker.Internet.Email(),
-                
+                Password = Faker.Identification.SocialSecurityNumber(),  
+            };
+        }
+        public static UserAddressEmailModel GetUserDataEmail()
+        {
+            return new UserAddressEmailModel
+            {
+                EMail = Faker.Internet.Email()
             };
         }
 
