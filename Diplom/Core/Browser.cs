@@ -15,7 +15,8 @@ namespace Diplom.Core
             return BrowserInstances.Value ??= new Browser();
         }
 
-        private Browser()
+        //Choose browser
+        private Browser() 
         {
             driver = AppConfiguration.Browser.BrowserType.ToLower() switch
             {
