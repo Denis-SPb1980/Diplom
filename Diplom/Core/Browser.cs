@@ -3,11 +3,11 @@ using OpenQA.Selenium;
 
 namespace Diplom.Core
 {
-    internal class Browser
+    public class Browser
     {
         private static readonly ThreadLocal<Browser> BrowserInstances = new();
 
-        public static Browser Instance = GetBrowser();
+        public static Browser Instance => GetBrowser();
         private IWebDriver driver;
         public IWebDriver Driver { get { return driver; } }
         private static Browser GetBrowser()
