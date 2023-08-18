@@ -10,6 +10,4 @@
             return $"Mail: {Mail} Password: {Password}"; 
         }
     }
-
-
 }
