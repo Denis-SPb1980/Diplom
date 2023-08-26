@@ -10,7 +10,7 @@ namespace Diplom.BussinesObject.PageObjects
         private By DeliveryNextDayButtoon = By.XPath("//*[@class = 'delivery_options']/div[2]/div/table/tbody/tr/td[1]/div/span");
         private By AgreeChekBox = By.Id("cgv");
         private By ProceedToCheckoutBatton = By.XPath("//*[@class = 'button btn btn-default standard-checkout button-medium']");
-        private By ErrorMessage = By.ClassName("fancybox-error");
+        private By MessageError = By.XPath("//*[@class = 'paiement_block']/p[contains(text(),'No payment modules')]");
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public const string url = "http://prestashop.qatestlab.com.ua/ru/order";
@@ -31,6 +31,15 @@ namespace Diplom.BussinesObject.PageObjects
             driver.FindElement(ProceedToCheckoutBatton).Click();
             AllureHelper.ScreenShot();
             return new PaymentPage();
+        }
+
+        [AllureStep]
+        public void AgreeToTermsGoToPaymentPage()
+        {
+            driver.FindElement(AgreeChekBox).Click();
+            driver.FindElement(ProceedToCheckoutBatton).Click();
+            Assert.IsTrue(BasePage.CheckElementOnPage(MessageError), "Элемент не найден на странице");
+            AllureHelper.ScreenShot();
         }
     }
 }

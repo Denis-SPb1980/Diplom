@@ -12,21 +12,19 @@
   <ItemGroup>
     <None Remove="C:\Users\Comp\.nuget\packages\nlog.config\4.7.15\contentFiles\any\any\NLog.config" />
     <None Remove="PrestashopTests\allureConfig.json" />
-    <None Remove="PrestashopTests\RunSettings\appsetting.json" />
-    <None Remove="PrestashopTests\RunSettings\BrowserSetup.runsettings" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="C:\Users\Comp\.nuget\packages\nlog.config\4.7.15\contentFiles\any\any\NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PrestashopTests\allureConfig.json">
+    <Content Include="allureConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PrestashopTests\RunSettings\appsetting.json">
+    <Content Include="appsetting.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PrestashopTests\RunSettings\BrowserSetup.runsettings">
+    <Content Include="BrowserSetup.runsettings">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

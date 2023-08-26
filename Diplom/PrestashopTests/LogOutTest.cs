@@ -10,15 +10,11 @@ namespace Diplom.PrestashopTests
 
         public void LoginAndLogoutOfAccount()
         {
-            Browser.Instance.NavigateToUrl("http://prestashop.qatestlab.com.ua/ru/");
-
-            new HomePage()
-                .GoToLogin()
+            new LoginPage()
+                .OpenPage()
                 .FillEmailAndGoToCreateAccount()
                 .CreateNewUserAndGoToMyAccount()
                 .Logout();
-
-           Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.Id("SubmitCreate")));
         }
     }
 }

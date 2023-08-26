@@ -11,6 +11,7 @@ namespace Diplom.BussinesObject.PageObjects
         private By LastNameInput = By.Id("customer_lastname");
         private By PasswordInput = By.Id("passwd");
         private By RegisterButton = By.Id("submitAccount");
+        private By MessageErrorIsRequired = By.XPath("//*[@class = 'alert alert-danger']/ol/li[contains(text(),'is required')]");
 
         public const string url = "http://prestashop.qatestlab.com.ua/ru/authentication?back=my-account#account-creation";
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -51,6 +52,7 @@ namespace Diplom.BussinesObject.PageObjects
         {
             var user = UserBuilder.GetUserDataLogin();
             InputUserDataWithOutName(user);
+            Assert.IsTrue(BasePage.CheckElementOnPage(MessageErrorIsRequired),"Элемент не найден на странице");
         }
 
         [AllureStep]

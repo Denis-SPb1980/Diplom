@@ -10,7 +10,6 @@
                 Password = TestContext.Parameters.Get("StandartUserPassword")
             };
         }
-
         public static UserCreateModel GetUserDataLogin()
         {
             return new UserCreateModel
@@ -27,7 +26,6 @@
                 EMail = Faker.Internet.Email()
             };
         }
-
         public static UserLoginModel GetUnknownUser()
         {
             return new UserLoginModel
@@ -36,7 +34,6 @@
                 Password = Faker.Identification.SocialSecurityNumber(),
             };
         }
-
         public static UserAddressModel GetUserData()
         {
             return new UserAddressModel
@@ -46,9 +43,8 @@
                 Address = Faker.Address.StreetAddress(),
                 PostalCode = TestContext.Parameters.Get("PostalCode"),
                 City = Faker.Address.City(),
-                MobilePhone =  Faker.Phone.Number(),
+                MobilePhone = Faker.Phone.Number(),
                 AddressAlias = Faker.Address.StreetName(),
-
             };
         }
     }

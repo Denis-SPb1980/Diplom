@@ -12,6 +12,7 @@ namespace Diplom.BussinesObject.PageObjects
         private By PaymentChekButton = By.ClassName("cheque");
         private By CurrencyСhoiceDropDawn = By.Id("currency_payement");
         private By ValidePurchaseButton = By.XPath("//*[@class = 'button btn btn-default button-medium']");
+        private static By ProductsInBasket = By.XPath("//*[@class = 'shopping_cart']/a/span[5]");
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public const string url = "http://prestashop.qatestlab.com.ua/ru/order?multi-shipping=";
@@ -51,6 +52,21 @@ namespace Diplom.BussinesObject.PageObjects
             var num = Random.Next(1,3);
             var select = new SelectElement(driver.FindElement(CurrencyСhoiceDropDawn));
             select.SelectByIndex(num);
+        }
+
+        [AllureStep]
+        public static bool CheckingAvailabilityProductsInCart()
+        {
+            try
+            {
+                Browser.Instance.Driver.FindElement(ProductsInBasket);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                logger.Info($"Еlement not found");
+                return false;
+            }
         }
     }
 }

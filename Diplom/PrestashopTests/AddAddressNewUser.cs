@@ -17,15 +17,13 @@ namespace Diplom.PrestashopTests
         [AllureOwner("Denis")]
         public void AddAddressNewUser()
         {
-            Browser.Instance.NavigateToUrl("http://prestashop.qatestlab.com.ua/ru/authentication?back=my-account");
-
             new LoginPage()
+                .OpenPage()
                 .FillEmailAndGoToCreateAccount()
                 .CreateNewUserAndGoToMyAccount()
                 .GoToAddressesPage()
-                .FillAndSaveUserAddress();
-
-               Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//*[@class = 'address_update']/a[2]")));
+                .FillAndSaveUserAddressWithChoiceCountry();
+            Assert.IsTrue(AddressesPage.CheckingAddressDisplay(), "Элемент не найден на странице");
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Diplom.BussinesObject.PageObjects
     {
         private By AddAddresButton = By.XPath("//*[@id='center_column']/div/div[1]/ul/li[1]/a");
         private By LogoutButton = By.ClassName("logout");
+        private By CreateAccountButton = By.Id("SubmitCreate");
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public const string url = "http://prestashop.qatestlab.com.ua/ru/my-account";
@@ -33,6 +34,7 @@ namespace Diplom.BussinesObject.PageObjects
         {
             logger.Info($"Account has been logged out");
             driver.FindElement(LogoutButton).Click();
+            Assert.IsTrue(BasePage.CheckElementOnPage(CreateAccountButton), "Элемент не найден на странице");
         }
     }
 }

@@ -18,8 +18,8 @@ namespace Diplom.BussinesObject.PageObjects
         private By StateDropDown = By.XPath("//*[@id = 'id_state']");
         private By AddressTitleInput = By.Id("alias");
         private By SaveButton = By.Id("submitAddress");
-        private By AddNewAddressButton = By.XPath("//*[@class = 'address_add submit']/a");
         private By ProceedToCheckoutBatton = By.XPath("//*[@class = 'button btn btn-default button-medium']");
+        private static By DeleteAddressButton = By.XPath("//*[@class = 'address_update']/a[2]");
 
         public const string url = "http://prestashop.qatestlab.com.ua/ru/address";
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -33,11 +33,20 @@ namespace Diplom.BussinesObject.PageObjects
         }
 
         [AllureStep]
-        public void FillAndSaveUserAddress()
+        public void FillAndSaveUserAddressWithoutSelectCountry()
         {
             logger.Info($"Addres user is filled and saved");
             var user = UserBuilder.GetUserData();
-            InputCustomerAddressAndSave(user);   
+            InputCustomerAddressAndSave(user);
+        }
+
+        [AllureStep]
+        public void FillAndSaveUserAddressWithChoiceCountry()
+        {
+            logger.Info($"Addres user is filled and saved");
+            var user = UserBuilder.GetUserData();
+            SelectCountry();
+            InputCustomerAddressAndSave(user);
         }
 
         [AllureStep]
@@ -48,32 +57,36 @@ namespace Diplom.BussinesObject.PageObjects
             driver.FindElement(AddressInput).SendKeys(user.Address);
             driver.FindElement(PostalCodeInput).SendKeys(user.PostalCode);
             driver.FindElement(CityInput).SendKeys(user.City);
-            SelectCountry();
             driver.FindElement(MobilePhoneInput).SendKeys(user.MobilePhone);
             SelectState();
             driver.FindElement(AddressTitleInput).SendKeys(user.AddressAlias);
             driver.FindElement(SaveButton).Click();
         }
-
         public void SelectCountry()
         {
             logger.Info($"Сountry selection");
             var select = new SelectElement(driver.FindElement(CountryDropDown));
-            select.SelectByValue("216");
+            select.SelectByIndex(1);
         }
         public void SelectState()
         {
             logger.Info($"Сountry state");
-            var Random = new Random();
-            var num = Random.Next(1, 10);
             var select = new SelectElement(driver.FindElement(StateDropDown));
-            select.SelectByIndex(num);
+            select.SelectByIndex(3);
         }
 
         [AllureStep]
         public DeliveryPage FillUserAddressAndGoToDeliveryPage()
         {
-            FillAndSaveUserAddress();
+            FillAndSaveUserAddressWithChoiceCountry();
+            driver.FindElement(ProceedToCheckoutBatton).Click();
+            return new DeliveryPage();
+        }
+
+        [AllureStep]
+        public DeliveryPage FillUserAddressWithoutSelectCountryAndGoToDeliveryPage()
+        {
+            FillAndSaveUserAddressWithoutSelectCountry();
             driver.FindElement(ProceedToCheckoutBatton).Click();
             return new DeliveryPage();
         }
@@ -84,6 +97,21 @@ namespace Diplom.BussinesObject.PageObjects
             driver.FindElement(ProceedToCheckoutBatton).Click();
             AllureHelper.ScreenShot();
             return new DeliveryPage();
+        }
+
+        [AllureStep]
+        public static bool CheckingAddressDisplay()
+        {
+            try
+            {
+                Browser.Instance.Driver.FindElement(DeleteAddressButton);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                logger.Info($"Еlement not found");
+                return false;
+            }
         }
     }
 }

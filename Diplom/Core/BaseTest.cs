@@ -23,7 +23,6 @@ namespace Diplom.Core
             {
                 AllureHelper.ScreenShot();
             }
-            
             Browser.Instance.CloseBrowser();
         }
     } 

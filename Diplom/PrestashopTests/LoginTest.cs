@@ -15,22 +15,18 @@ namespace Diplom.PrestashopTests
             new HomePage()
                 .GoToLogin()
                 .LoginAsStandartUser();
-
-            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//*[@class = 'header_user_info']/a[@class = 'account']")));
+            Assert.IsTrue(HomePage.CheckingUsersDisplay(), "Элемент не найден на странице");
         }
 
         [Test(Description = "Negative test login unknown user")]
         public void LoginUnknownUser()
         {
-            Browser.Instance.NavigateToUrl("http://prestashop.qatestlab.com.ua/ru/authentication?back=my-account");
-
             var user = UserBuilder.GetUnknownUser();
 
             new LoginPage()
                 .OpenPage()
                 .TryToLogin(user);
-
-            Assert.IsNotNull(Browser.Instance.Driver.FindElement(By.XPath("//*[@class = 'alert alert-danger']/ol/li[contains(text(),'Authentication failed')]")));
+            Assert.IsTrue(LoginPage.CheckingErrorAuthentication(), "Элемент не найден на странице");
         }
     }
 }

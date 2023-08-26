@@ -9,8 +9,6 @@ namespace Diplom.BussinesObject.PageObjects
     public class HomePage : BasePage
     {
         private By LoginButton = By.ClassName("login");
-        private By BasketButton = By.XPath("//*[@class = 'shopping_cart']/a");
-
         private By QuickPrintedDress = By.XPath("//*[@id='homefeatured']/li[3]/div/div[1]/div/a[2]/span");
         private By QuickAddTShirts = By.XPath("//*[@id='homefeatured']/li[1]/div/div/div[1]/a[2]/span");
         private By AddDress = By.XPath("//*[@class='product_img_link'][.//*[@title='Printed Dress']][1]");
@@ -18,7 +16,7 @@ namespace Diplom.BussinesObject.PageObjects
         private By AddBlouse = By.XPath("//*[@class='product_img_link'][.//*[@title='Blouse']][1]");
         private By AddToCartTShirts = By.XPath("//*[@id='homefeatured']/li[1]/div/div[2]/div[2]/a[1]/span");
         private By AddToCartBlouse = By.XPath("//*[@id='homefeatured']/li[2]/div/div[2]/div[2]/a[1]/span");
-
+        public static By ViewUserAccount = By.XPath("//*[@class = 'header_user_info']/a[@class = 'account']");
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public const string url = "http://prestashop.qatestlab.com.ua/ru/";
@@ -81,6 +79,21 @@ namespace Diplom.BussinesObject.PageObjects
             ActivateQuickView(AddTShirts);
             driver.FindElement(AddToCartTShirts).Click();
             return new PopUpBasketPage();
+        }
+
+        [AllureStep]
+        public static bool CheckingUsersDisplay()
+        {
+            try
+            {
+                Browser.Instance.Driver.FindElement(ViewUserAccount);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                logger.Info($"Еlement not found");
+                return false;
+            }
         }
     }
 }

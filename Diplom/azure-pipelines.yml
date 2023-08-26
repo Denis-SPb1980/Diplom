@@ -10,9 +10,6 @@ pool:
   name: 'Denis'
 
 steps:
-- task: NuGetToolInstaller@1
-
-
 - task: NuGetCommand@2
   displayName: "Restore nuget package for Solution"
   inputs:
@@ -24,18 +21,9 @@ steps:
   inputs:
     command: 'build'
     arguments: '--configuration Debug'
-- task: DotNetCoreCLI@2
-  displayName: "Test"
-  inputs:
-    command: 'test'
 
-- task: NuGetCommand@2
+-- task: DotNetCoreCLI@2
+  displayName: 'Dotnet test -s BrowserSetup.runsettings'
   inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
-  inputs:
-    platform: 'x86'
-    solution: '$(solution)'
-    configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+    command: 'test' 
+    arguments: '-s BrowserSetup.runsettings'
