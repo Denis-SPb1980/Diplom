@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -10,11 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="azure-pipelines.yml" />
     <None Remove="C:\Users\Comp\.nuget\packages\nlog.config\4.7.15\contentFiles\any\any\NLog.config" />
     <None Remove="PrestashopTests\allureConfig.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="azure-pipelines.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="C:\Users\Comp\.nuget\packages\nlog.config\4.7.15\contentFiles\any\any\NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
