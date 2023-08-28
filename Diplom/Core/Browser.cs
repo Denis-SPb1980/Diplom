@@ -1,27 +1,48 @@
-﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Diplom.Core.Configuration;
+using OpenQA.Selenium;
 
 namespace Diplom.Core
 {
-    internal class Browser
+    public class Browser
     {
-        private static Browser instance = null;
+        private static readonly ThreadLocal<Browser> BrowserInstances = new();
+
+        public static Browser Instance => GetBrowser();
         private IWebDriver driver;
         public IWebDriver Driver { get { return driver; } }
-
-        public static Browser Instance
+        private static Browser GetBrowser()
         {
-            get
+            return BrowserInstances.Value ??= new Browser();
+        }
+
+        private Browser() 
+        {
+            driver = AppConfiguration.Browser.BrowserType.ToLower() switch
             {
-                if (instance == null)
-                {
-                    instance = new Browser();
-                }
-                return instance;
-            }
+                "chrome" => DriverFactory.GetChromeDriver(),
+                "firefox" => DriverFactory.GetFirefoxDriver(),
+                _ => DriverFactory.GetChromeDriver()
+            };
+
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(AppConfiguration.Browser.ImplicityWait);
+            driver.Manage().Window.Maximize();
+        }
+
+        public void NavigateToUrl(string url)
+        {
+            driver.Navigate().GoToUrl(url);
+        }
+
+        public void SwitchToFrame(IWebElement element)
+        {
+            driver.SwitchTo().Frame(element);
+        }
+
+        public void CloseBrowser()
+        {
+            driver?.Dispose();
+            BrowserInstances.Value = null;
+            driver = null;
         }
     }
+}
